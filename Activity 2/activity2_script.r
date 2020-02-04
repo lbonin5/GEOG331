@@ -4,7 +4,17 @@ heights <- c(30,41,20,22)
 heights_cm<-heights*100
 
 #question 2 examples
-#charcter vector
+#character vector
+char_vec<-c("one","two","three","four","five")
+#numerical vector
+num_vec<-c(5.5,6.5,7.5,3.5,2.5)
+#integer vector
+int_data<-c(1,2,3,4,5)
+int_vec<-as.integer(int_vec)
+is.integer(int_vec)
+#factorvector
+factor_data<-c("female","male","male","female","male")
+factor_vec<- factor(factor_data)
 
 #read in weather station file from the data folder
 datW <- read.csv("y:\\Students\\lbonin\\a02\\2011124.csv")
@@ -35,6 +45,9 @@ averageTemp
 #convert level to number for factor data type
 datW$siteN <- as.numeric(datW$NAME)
 
+#same window for the four histograms
+par(mfrow=c(2,2))
+
 #histrogram creation for Aberdeen, WA
 hist(datW$TAVE[datW$siteN == 1],
      freq=FALSE, 
@@ -58,7 +71,74 @@ abline(v = mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE) + sd(datW$TAVE[datW$siteN
        lty = 3,
        lwd = 3)
 
+#histrogram creation for Livermore, CA
+hist(datW$TAVE[datW$siteN == 2],
+     freq=FALSE, 
+     main = paste(levels(datW$NAME)[2]),
+     xlab = "Average daily temperature (degrees C)", 
+     ylab="Relative frequency",
+     col="grey50",
+     border="white")
+#add mean line with red (tomato3) color, thickness of 3
+abline(v = mean(datW$TAVE[datW$siteN == 2],na.rm=TRUE), 
+       col = "tomato3",
+       lwd = 3)
+#add standard deviation line below the mean with red (tomato3) color
+abline(v = mean(datW$TAVE[datW$siteN == 2],na.rm=TRUE) - sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE), 
+       col = "tomato3", 
+       lty = 3,
+       lwd = 3)
+#add standard deviation line above the mean with red (tomato3) color
+abline(v = mean(datW$TAVE[datW$siteN == 2],na.rm=TRUE) + sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE), 
+       col = "tomato3", 
+       lty = 3,
+       lwd = 3)
 
+#histrogram creation for MOrmon Flat AZ
+hist(datW$TAVE[datW$siteN == 4],
+     freq=FALSE, 
+     main = paste(levels(datW$NAME)[4]),
+     xlab = "Average daily temperature (degrees C)", 
+     ylab="Relative frequency",
+     col="grey50",
+     border="white")
+#add mean line with red (tomato3) color, thickness of 3
+abline(v = mean(datW$TAVE[datW$siteN == 4],na.rm=TRUE), 
+       col = "tomato3",
+       lwd = 3)
+#add standard deviation line below the mean with red (tomato3) color
+abline(v = mean(datW$TAVE[datW$siteN == 4],na.rm=TRUE) - sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE), 
+       col = "tomato3", 
+       lty = 3,
+       lwd = 3)
+#add standard deviation line above the mean with red (tomato3) color
+abline(v = mean(datW$TAVE[datW$siteN == 4],na.rm=TRUE) + sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE), 
+       col = "tomato3", 
+       lty = 3,
+       lwd = 3)
+
+#histrogram creation for MOrrisville NY
+hist(datW$TAVE[datW$siteN == 5],
+     freq=FALSE, 
+     main = paste(levels(datW$NAME)[5]),
+     xlab = "Average daily temperature (degrees C)", 
+     ylab="Relative frequency",
+     col="grey50",
+     border="white")
+#add mean line with red (tomato3) color, thickness of 3
+abline(v = mean(datW$TAVE[datW$siteN == 5],na.rm=TRUE), 
+       col = "tomato3",
+       lwd = 3)
+#add standard deviation line below the mean with red (tomato3) color
+abline(v = mean(datW$TAVE[datW$siteN == 5],na.rm=TRUE) - sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE), 
+       col = "tomato3", 
+       lty = 3,
+       lwd = 3)
+#add standard deviation line above the mean with red (tomato3) color
+abline(v = mean(datW$TAVE[datW$siteN == 5],na.rm=TRUE) + sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE), 
+       col = "tomato3", 
+       lty = 3,
+       lwd = 3)
 
 
 
