@@ -174,4 +174,15 @@ hist(datW$PRCP[datW$siteN == 1],
      ylab="Relative frequency",
      col="grey50",
      border="white")
+#precip for each year/site in data
+yearly_precp<-aggregate(datW$PRCP,by=list(datW$NAME,datW$year),FUN="sum",na.rm=TRUE)
+
+hist(yearly_precp$x[yearly_precp$Group.1=="ABERDEEN, WA US"],
+     freq=FALSE, 
+     main = "Precipitation for Aberdeen",
+     xlab = "Average daily precipitation", 
+     ylab="Relative frequency",
+     col="grey50",
+     border="white")
+
 
