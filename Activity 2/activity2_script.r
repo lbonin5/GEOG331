@@ -140,5 +140,38 @@ abline(v = mean(datW$TAVE[datW$siteN == 5],na.rm=TRUE) + sd(datW$TAVE[datW$siteN
        lty = 3,
        lwd = 3)
 
+#temperatures below freezing 
+pnorm(0,
+      mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
+      sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
 
+#temps between 0 and 5
+pnorm(5,
+      mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
+      sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))- pnorm(0,
+        mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
+        sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
+
+#temps above 20 degrees
+1 - pnorm(20,
+          mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
+          sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
+
+#extreme temps
+Aberdeen_increase<-mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE)+4
+extreme_aberdeen<-qnorm(0.95,
+      Aberdeen_increase,
+      sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
+1 - pnorm(extreme_aberdeen,
+          Aberdeen_increase,
+          sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
+
+#aberdeen parcipitation data
+hist(datW$PRCP[datW$siteN == 1],
+     freq=FALSE, 
+     main = paste(levels(datW$NAME)[1]),
+     xlab = "Average daily precipitation", 
+     ylab="Relative frequency",
+     col="grey50",
+     border="white")
 
