@@ -48,6 +48,7 @@ datW$siteN <- as.numeric(datW$NAME)
 #same window for the four histograms
 par(mfrow=c(2,2))
 
+#Questions 3, 4 and 5
 #histrogram creation for Aberdeen, WA
 hist(datW$TAVE[datW$siteN == 1],
      freq=FALSE, 
@@ -77,7 +78,7 @@ hist(datW$TAVE[datW$siteN == 2],
      main = paste(levels(datW$NAME)[2]),
      xlab = "Average daily temperature (degrees C)", 
      ylab="Relative frequency",
-     col="grey50",
+     col="lightblue1",
      border="white")
 #add mean line with red (tomato3) color, thickness of 3
 abline(v = mean(datW$TAVE[datW$siteN == 2],na.rm=TRUE), 
@@ -100,7 +101,7 @@ hist(datW$TAVE[datW$siteN == 4],
      main = paste(levels(datW$NAME)[4]),
      xlab = "Average daily temperature (degrees C)", 
      ylab="Relative frequency",
-     col="grey50",
+     col="seagreen1",
      border="white")
 #add mean line with red (tomato3) color, thickness of 3
 abline(v = mean(datW$TAVE[datW$siteN == 4],na.rm=TRUE), 
@@ -123,7 +124,7 @@ hist(datW$TAVE[datW$siteN == 5],
      main = paste(levels(datW$NAME)[5]),
      xlab = "Average daily temperature (degrees C)", 
      ylab="Relative frequency",
-     col="grey50",
+     col="darkgreen",
      border="white")
 #add mean line with red (tomato3) color, thickness of 3
 abline(v = mean(datW$TAVE[datW$siteN == 5],na.rm=TRUE), 
@@ -139,6 +140,32 @@ abline(v = mean(datW$TAVE[datW$siteN == 5],na.rm=TRUE) + sd(datW$TAVE[datW$siteN
        col = "tomato3", 
        lty = 3,
        lwd = 3)
+#showing normal dist for Aberdeen
+h1<-hist(datW$TAVE[datW$siteN == 1],
+           freq=FALSE, 
+           main = paste(levels(datW$NAME)[1]),
+           xlab = "Average daily temperature (degrees C)", 
+           ylab="Relative frequency",
+           col="grey50",
+           border="white")
+#the seq function generates a sequence of numbers that we can use to plot the normal across the range of temperature values
+x.plot <- seq(-10,30, length.out = 100)
+#the dnorm function will produce the probability density based on a mean and standard deviation.
+
+y.plot <-  dnorm(seq(-10,30, length.out = 100),
+                 mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
+                 sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
+#create a density that is scaled to fit in the plot  since the density has a different range from the data density.
+y.scaled <- (max(h1$density)/max(y.plot)) * y.plot
+
+#the first two arguements are the x coordinates and the y coordinates.
+
+points(x.plot,
+       y.scaled, 
+       type = "l", 
+       col = "royalblue3",
+       lwd = 4, 
+       lty = 2)
 
 #probability of temperatures below freezing in Aberdeen
 pnorm(0,
@@ -156,7 +183,7 @@ pnorm(5,
 1 - pnorm(20,
           mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
           sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
-
+#Question 6
 #extreme temp calcuation in Aberdeen
 Aberdeen_increase<-mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE)+4
 extreme_aberdeen<-qnorm(0.95,
@@ -166,6 +193,7 @@ extreme_aberdeen<-qnorm(0.95,
           Aberdeen_increase,
           sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
 
+#Question 7
 #aberdeen parcipitation data
 hist(datW$PRCP[datW$siteN == 1],
      freq=FALSE, 
@@ -174,6 +202,8 @@ hist(datW$PRCP[datW$siteN == 1],
      ylab="Relative frequency",
      col="grey50",
      border="white")
+
+#Question 8
 #precip for each year/site in data
 yearly_precp<-aggregate(datW$PRCP,by=list(datW$NAME,datW$year),FUN="sum",na.rm=TRUE)
 #representing annual precip for aberdeen as a histogram
@@ -185,6 +215,7 @@ hist(yearly_precp$x[yearly_precp$Group.1=="ABERDEEN, WA US"],
      col="grey50",
      border="white")
 
+#Question 9
 #mean of annual precipitation across all sites
 averagePRCP<-aggregate(yearly_precp$x, by=list(yearly_precp$Group.1), FUN="mean", na.rm=TRUE)
 averagePRCP
