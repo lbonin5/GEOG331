@@ -140,28 +140,28 @@ abline(v = mean(datW$TAVE[datW$siteN == 5],na.rm=TRUE) + sd(datW$TAVE[datW$siteN
        lty = 3,
        lwd = 3)
 
-#temperatures below freezing 
+#probability of temperatures below freezing in Aberdeen
 pnorm(0,
       mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
       sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
 
-#temps between 0 and 5
+#probability temps between 0 and 5 in Aberdeen
 pnorm(5,
       mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
       sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))- pnorm(0,
         mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
         sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
 
-#temps above 20 degrees
+#temps above 20 degrees in Abderdeen
 1 - pnorm(20,
           mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
           sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
 
-#extreme temps
+#extreme temp calcuation in Aberdeen
 Aberdeen_increase<-mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE)+4
 extreme_aberdeen<-qnorm(0.95,
-      Aberdeen_increase,
-      sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
+                      mean(datW$TAVE[datW$siteN == 1],na.rm=TRUE),
+                      sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
 1 - pnorm(extreme_aberdeen,
           Aberdeen_increase,
           sd(datW$TAVE[datW$siteN == 1],na.rm=TRUE))
@@ -176,7 +176,7 @@ hist(datW$PRCP[datW$siteN == 1],
      border="white")
 #precip for each year/site in data
 yearly_precp<-aggregate(datW$PRCP,by=list(datW$NAME,datW$year),FUN="sum",na.rm=TRUE)
-
+#representing annual precip for aberdeen as a histogram
 hist(yearly_precp$x[yearly_precp$Group.1=="ABERDEEN, WA US"],
      freq=FALSE, 
      main = "Precipitation for Aberdeen",
@@ -185,4 +185,7 @@ hist(yearly_precp$x[yearly_precp$Group.1=="ABERDEEN, WA US"],
      col="grey50",
      border="white")
 
-
+#mean of annual precipitation across all sites
+averagePRCP<-aggregate(yearly_precp$x, by=list(yearly_precp$Group.1), FUN="mean", na.rm=TRUE)
+averagePRCP
+averageTemp
