@@ -17,7 +17,29 @@ library(ggplot2)
 #1. iris  sepal length x width
 #2. iris  petal length x width
 #3. iris sepal length x petal length
+#creating a dataframe for iris versicolor info
+versicolor<-iris[iris$Species == "versicolor", ]
+head(versicolor)
+#creating a linear model (y~x)
+#dependent var is a function of independent var
+lm.out<-lm(versicolor$Sepal.Width~versicolor$Sepal.Length)
+#another way to subset
+#lm.out<-lm(versicolor[,Sepal$Width]~versicolor[,Sepal$Length])
+summary(lm.out)
 
+#iteration through vectors
+x<-c("Sepal.Length","Petal.Length","Sepal.Length")
+y<-c("Sepal.Width","Petal.Width","Petal.Length")
+#empty list to set up dummy var
+lm.out<-list()
+#lists are indexed with double brackets
+for (i in 1:3){
+  lm.out[[i]]<-lm(versicolor[,paste(y[i])]~versicolor[,paste(x[i])])
+}
+
+lm.out[[1]]
+lm.out[[2]]
+lm.out[[3]]
 
 
 #####################################
@@ -28,6 +50,13 @@ library(ggplot2)
 #to a new iris data frame
 height <- data.frame(Species = c("virginica","setosa","versicolor"),
                      Height.cm = c(60,100,11.8))
+
+#using join to combine this to our original iris dataset
+#iris is left table
+#height is right table
+iris2<-left_join(iris,height, by="Species")
+head(iris2)
+iris2$Petal.Width/iris2$Height.cm
 
 
 
