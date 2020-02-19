@@ -18,3 +18,11 @@ a<-c(3,4,5,6)
 b<-c(3,4,5)
 #testing if vectors are the same length
 assert(length(a) == length(b), "error: unequal lengths")
+
+
+#reading in the data
+#na.strings=c("#N/A") changes to NA
+#skip 3 skips the first 3 rows and begins reading data at row 4
+datW <- read.csv("y:\\Students\\hkropp\\a03\\bewkes_weather.csv",
+                 na.strings=c("#N/A"), skip=3, header=FALSE)
+print(datW[1,])
