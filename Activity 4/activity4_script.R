@@ -67,16 +67,28 @@ iris2$Petal.Width/iris2$Height.cm
 plot(iris$Sepal.Length,iris$Sepal.Width)
 
 #3a. now make the same plot in ggplot
+ggplot(data = iris, aes(Sepal.Length,Sepal.Width)) +
+  geom_point()
 
 
 #3b. make a scatter plot with ggplot and get rid of  busy grid lines
-
+ggplot(data = iris, aes(Sepal.Length,Sepal.Width)) +
+  geom_point() +
+  theme_classic()
 
 #3c.make a scatter plot with ggplot and get rid of grid lines
 #and show species by color increasing the point size
+ggplot(data = iris, aes(Sepal.Length,Sepal.Width, color=Species)) +
+  geom_point(size=4) +
+  theme_classic() 
 
 #####################################
 ##### Question: how did         #####
 ##### arguments differ between  #####
 ##### plot and ggplot?          #####
 #####################################
+#ggplot requires different declaration of the arguements
+#example: declaring data frame first,
+#including the geomtry of the data you are plotting.
+#ggplot also tends to be a lot easier to change different features
+#of the data plot
