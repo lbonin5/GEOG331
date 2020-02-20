@@ -1,3 +1,5 @@
+####Lucy Bonin
+
 #use built in iris dataset
 #take a look at it 
 install.packages(c("dplyr","ggplot2"))
