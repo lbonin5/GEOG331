@@ -103,3 +103,22 @@ assert(length(datW$precipitation) == length(lightscale), "error: unequal lengths
 #QUESTION 6
 datW$air.tempQ2 <- ifelse(datW$precipitation  >= 2 & datW$lightning.acvitivy >0, NA,
                           ifelse(datW$precipitation > 5, NA, datW$air.tempQ1))
+datW$wind.speedQ1 <- ifelse(datW$precipitation  >= 2 & datW$lightning.acvitivy >0, NA,
+                          ifelse(datW$precipitation > 5, NA, datW$wind.speed))
+#plot of the filtered wind speeds
+plot(datW$DD, datW$wind.speedQ1, pch=19, type="b", xlab = "Day of Year",
+     ylab="Wind SPeed")
+extreme.meas<-length(which(datW$precipitation  > 5 & datW$lightning.acvitivy == 0)) + length(which(datW$precipitation  >= 2 & datW$lightning.acvitivy >0))
+assert(extreme.meas==length(which(is.na(datW$wind.speedQ1))))
+length(which(is.na(datW$wind.speedQ1)))
+
+#QUESTION 7
+par(mfrow=c(2,2))
+plot(datW$DD, datW$soil.moisture, pch=19, type="b", xlab = "Day of Year",
+     ylab="Soil moisture (cm3 water per cm3 soil)")
+plot(datW$DD, datW$soil.temp, pch=19, type="b", xlab = "Day of Year",
+     ylab="Soil temp (degrees C))")
+plot(datW$DD, datW$air.tempQ2, pch=19, type="b", xlab = "Day of Year",
+     ylab="air temp (degrees C))")
+plot(datW$DD, datW$precipitation, pch=19, type="b", xlab = "Day of Year",
+     ylab="Precipitation (cm))")
