@@ -115,10 +115,28 @@ length(which(is.na(datW$wind.speedQ1)))
 #QUESTION 7
 par(mfrow=c(2,2))
 plot(datW$DD, datW$soil.moisture, pch=19, type="b", xlab = "Day of Year",
-     ylab="Soil moisture (cm3 water per cm3 soil)")
+     ylab="Soil moisture (m3 water per m3 soil)")
 plot(datW$DD, datW$soil.temp, pch=19, type="b", xlab = "Day of Year",
      ylab="Soil temp (degrees C))")
 plot(datW$DD, datW$air.tempQ2, pch=19, type="b", xlab = "Day of Year",
      ylab="air temp (degrees C))")
 plot(datW$DD, datW$precipitation, pch=19, type="b", xlab = "Day of Year",
-     ylab="Precipitation (cm))")
+     ylab="Precipitation (mm))")
+
+par(mfrow=c(1,2))
+plot(datW$DD[which(datW$doy > 185 & datW$doy < 192 )], datW$precipitation[which(datW$doy > 185 & datW$doy < 192 )], type="b", xlab = "Day of Year",
+     ylab="Precipitation (mm))")
+plot(datW$DD[which(datW$doy > 185 & datW$doy < 192 )], datW$soil.moisture[which(datW$doy > 185 & datW$doy < 192 )], type="b", xlab = "Day of Year",
+     ylab="Soil Moisture (cm^3))")
+quantile(datW$soil.moisture, na.rm=TRUE)
+min(datW$soil.moisture[which(datW$doy > 185 & datW$doy < 192 )])
+quantile(datW$soil.temp, na.rm=TRUE)
+min(datW$soil.temp[which(datW$doy > 185 & datW$doy < 192 )])
+
+#QUESTION 8 
+mean(datW$air.tempQ2, na.rm=TRUE)
+mean(datW$wind.speedQ1, na.rm=TRUE)
+mean(datW$soil.temp, na.rm=TRUE)
+mean(datW$soil.moisture, na.rm=TRUE)
+sum(datW$precipitation, na.rm=TRUE) 
+
