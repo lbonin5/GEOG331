@@ -140,3 +140,15 @@ mean(datW$soil.temp, na.rm=TRUE)
 mean(datW$soil.moisture, na.rm=TRUE)
 sum(datW$precipitation, na.rm=TRUE) 
 
+#QUestion 9
+par(mfrow=c(2,2))
+plot(datW$DD, datW$soil.moisture, pch=19, type="b", xlab = "Day of Year",
+     ylab="Soil moisture (m3 water per m3 soil)")
+plot(datW$DD, datW$soil.temp, pch=19, type="b", xlab = "Day of Year",
+     ylab="Soil temp (degrees C))")
+plot(datW$DD, datW$precipitation, pch=19, type="b", xlab = "Day of Year",
+     ylab="Precipitation (mm))")
+plot(datW$DD, datW$air.tempQ2, pch=19, type="b", xlab = "Day of Year",
+     ylab="air temp (degrees C))")
+
+
