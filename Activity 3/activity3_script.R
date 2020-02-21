@@ -103,8 +103,10 @@ assert(length(datW$precipitation) == length(lightscale), "error: unequal lengths
 #QUESTION 6
 datW$air.tempQ2 <- ifelse(datW$precipitation  >= 2 & datW$lightning.acvitivy >0, NA,
                           ifelse(datW$precipitation > 5, NA, datW$air.tempQ1))
+#filtering out unreliable observations
 datW$wind.speedQ1 <- ifelse(datW$precipitation  >= 2 & datW$lightning.acvitivy >0, NA,
                           ifelse(datW$precipitation > 5, NA, datW$wind.speed))
+
 #plot of the filtered wind speeds
 plot(datW$DD, datW$wind.speedQ1, pch=19, type="b", xlab = "Day of Year",
      ylab="Wind SPeed")
@@ -134,10 +136,12 @@ quantile(datW$soil.temp, na.rm=TRUE)
 min(datW$soil.temp[which(datW$doy > 185 & datW$doy < 192 )])
 
 #QUESTION 8 
+#finding observations over the 44 days
 mean(datW$air.tempQ2, na.rm=TRUE)
 mean(datW$wind.speedQ1, na.rm=TRUE)
 mean(datW$soil.temp, na.rm=TRUE)
 mean(datW$soil.moisture, na.rm=TRUE)
+#total obs
 sum(datW$precipitation, na.rm=TRUE) 
 
 #QUestion 9
