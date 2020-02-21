@@ -97,6 +97,7 @@ points(datW$DD[lightscale > 0], lightscale[lightscale > 0],
        col= "tomato3", pch=19)
 
 #QUESTION 5
+#using assert to check that the lengths are equal
 assert(length(datW$DD) == length(lightscale), "error: unequal lengths")
 assert(length(datW$precipitation) == length(lightscale), "error: unequal lengths")
 
@@ -110,11 +111,14 @@ datW$wind.speedQ1 <- ifelse(datW$precipitation  >= 2 & datW$lightning.acvitivy >
 #plot of the filtered wind speeds
 plot(datW$DD, datW$wind.speedQ1, pch=19, type="b", xlab = "Day of Year",
      ylab="Wind SPeed")
+#checking the NA in wind speeds have the same NA in air temp
 extreme.meas<-length(which(datW$precipitation  > 5 & datW$lightning.acvitivy == 0)) + length(which(datW$precipitation  >= 2 & datW$lightning.acvitivy >0))
 assert(extreme.meas==length(which(is.na(datW$wind.speedQ1))))
 length(which(is.na(datW$wind.speedQ1)))
 
 #QUESTION 7
+#PLOTS OF soil temp, moisture, air temp and precipitation to compare
+#the respective soil measurements with precipitation and air temp
 par(mfrow=c(2,2))
 plot(datW$DD, datW$soil.moisture, pch=19, type="b", xlab = "Day of Year",
      ylab="Soil moisture (m3 water per m3 soil)")
@@ -124,15 +128,19 @@ plot(datW$DD, datW$air.tempQ2, pch=19, type="b", xlab = "Day of Year",
      ylab="air temp (degrees C))")
 plot(datW$DD, datW$precipitation, pch=19, type="b", xlab = "Day of Year",
      ylab="Precipitation (mm))")
-
+#plotting the precipitation and moisture in the days leading up
 par(mfrow=c(1,2))
 plot(datW$DD[which(datW$doy > 185 & datW$doy < 192 )], datW$precipitation[which(datW$doy > 185 & datW$doy < 192 )], type="b", xlab = "Day of Year",
      ylab="Precipitation (mm))")
 plot(datW$DD[which(datW$doy > 185 & datW$doy < 192 )], datW$soil.moisture[which(datW$doy > 185 & datW$doy < 192 )], type="b", xlab = "Day of Year",
      ylab="Soil Moisture (cm^3))")
+#checking quantile measurements of soil moisture
 quantile(datW$soil.moisture, na.rm=TRUE)
+#minimum of soil moisture in the days leading up
 min(datW$soil.moisture[which(datW$doy > 185 & datW$doy < 192 )])
+#checking quantile measurements of soil temp
 quantile(datW$soil.temp, na.rm=TRUE)
+#minimum of soil temp over the days leading up
 min(datW$soil.temp[which(datW$doy > 185 & datW$doy < 192 )])
 
 #QUESTION 8 
@@ -141,11 +149,13 @@ mean(datW$air.tempQ2, na.rm=TRUE)
 mean(datW$wind.speedQ1, na.rm=TRUE)
 mean(datW$soil.temp, na.rm=TRUE)
 mean(datW$soil.moisture, na.rm=TRUE)
-#total obs
+#total precipitation observation
 sum(datW$precipitation, na.rm=TRUE) 
 
 #QUestion 9
+#creating a plot of soil temp, air temp, precip and soil moisture
 par(mfrow=c(2,2))
+#putting plots on same page
 plot(datW$DD, datW$soil.moisture, pch=19, type="b", xlab = "Day of Year",
      ylab="Soil moisture (m3 water per m3 soil)")
 plot(datW$DD, datW$soil.temp, pch=19, type="b", xlab = "Day of Year",
