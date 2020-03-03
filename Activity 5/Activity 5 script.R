@@ -36,6 +36,7 @@ datD$decDay <- datD$doy + (datD$hour/24)
 #calculate a decimal year, but account for leap year
 datD$decYear <- ifelse(leap_year(datD$year),datD$year + (datD$decDay/366),
                        datD$year + (datD$decDay/365))
+#change and add 1 to each day
 #calculate times for datP                       
 datP$hour <- hour(dateP ) + (minute(dateP )/60)
 #get full decimal time
@@ -46,3 +47,20 @@ datP$decYear <- ifelse(leap_year(datP$year),datP$year + (datP$decDay/366),
 
 #plot discharge
 plot(datD$decYear, datD$discharge, type="l", xlab="Year", ylab=expression(paste("Discharge ft"^"3 ","sec"^"-1")))
+
+#Question 5
+#plotting average discharge with standard deviation
+aveF <- aggregate(datD$discharge, by=list(datD$doy), FUN="mean")
+colnames(aveF) <- c("doy","dailyAve")
+sdF <- aggregate(datD$discharge, by=list(datD$doy), FUN="sd")
+colnames(sdF) <- c("doy","dailySD")
+#plot window
+dev.new(width=8,height=8)
+#bigger margins
+par(mai=c(1,1,1,1))
+#make plot
+plot(aveF$doy,aveF$dailyAve, 
+     type="l", 
+     xlab="Year", 
+     ylab=expression(paste("Discharge ft"^"3 ","sec"^"-1")),
+     lwd=2)
