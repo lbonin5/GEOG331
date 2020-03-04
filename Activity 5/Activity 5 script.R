@@ -85,10 +85,14 @@ legend("topright", c("mean","1 standard deviation"), #legend items
        pch=c(NA,15),#symbols
        bty="n")
 
-avg2017<-datD$discharge[which(datD$year==2017)]
-lines(avg2017, col="green")
+dat2017<-datD$discharge[which(datD$year==2017)]
+lines(dat2017, col="green")
 
 #QUestion 7
+#creating a data frame for days with full 24 hours of precip
+prec.agg<-aggregate(datP$hour, by=list(datP$doy,datP$year), length)
+colnames(prec.agg) <- c("doy","year","hourtotal")
+prec.24<-prec.agg[which(prec.agg$hourtotal==24),]
 
 #Question 8
 
