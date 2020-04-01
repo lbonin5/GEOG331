@@ -37,6 +37,13 @@ plot(g1998, col="royalblue3", add=TRUE, border=NA)
 plot(g2005, col="darkgoldenrod4", add=TRUE, border=NA)
 plot(g2015, col="tomato3", add=TRUE, border=NA)
 
+#zooming in
+plotRGB(rgbL, ext=c(289995,310000,5371253,5400000), stretch="lin")
+plot(g1966, col="palegreen2", border=NA, add=TRUE)
+plot(g1998, col="royalblue3", add=TRUE, border=NA)
+plot(g2005, col="darkgoldenrod4", add=TRUE, border=NA)
+plot(g2015, col="tomato3", add=TRUE, border=NA)
+
 #reading NDV data
 #set up sequence of years to see what year we are looking at
 ndviYear <- seq(2003,2016)
@@ -107,11 +114,18 @@ spplot(g2015, "percent_change")
 
 percent_change<-as.numeric(percent_change)
 min(percent_change,na.rm=TRUE)
-
+#finding the name of the glacier
 g2015@data$GLACNAME[5]
+#I looked at the data to find the coordinates around Boulder Glacier
+#zoomed in accordingly to the coordinates
 
-#find where she zooms in and change
-#trial and error
+plotRGB(rgbL, ext=c(273000.0,275000.0,5427000,5428000), stretch="lin", axes=TRUE,
+        main="Percent Loss (84.72%) of Boulder Glacier over time")
+plot(g1966, col="palegreen2", border=NA, add=TRUE)
+plot(g1998, col="royalblue3", add=TRUE, border=NA)
+plot(g2005, col="darkgoldenrod4", add=TRUE, border=NA)
+plot(g2015, col="tomato3", add=TRUE, border=NA)
+
 
 #QUESTION 7
 #extract NDVI values
