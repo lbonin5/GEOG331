@@ -69,6 +69,7 @@ for(i in 1:9){
                                   ifelse(getValues(allbands[[10]])>60,NA,getValues(allbands[[i]])))
   
 }
+#stacking clouds
 allbandsCloudf <- stack(allbandsCloud[[1]],allbandsCloud[[2]],allbandsCloud[[3]],allbandsCloud[[4]],allbandsCloud[[5]],allbandsCloud[[6]],allbandsCloud[[7]],allbandsCloud[[8]],allbandsCloud[[9]])
 plot(allbandsCloudf)
 plotRGB(allbandsCloudf,r=4, g=3, b=2,  
@@ -239,5 +240,14 @@ legend("bottomleft", paste(landclass$landcover),
 #add title
 mtext("Neural network", side=3,cex=2, line=-5)
 
+rf_vals<-getValues(rf_prediction)
+nn_vals<-getValues(nnet_prediction)
+difference<-ifelse(rf_vals==nn_vals, 1, 0)
+rf_difference<-setValues(rf_prediction,difference)
 
-
+plot(rf_prediction,
+     breaks=seq(0,6), 
+     col=landclass$cols ,
+     legend=FALSE, axes=FALSE)
+legend("bottomleft", paste(landclass$landcover),
+       fill=landclass$cols ,bty="n")
