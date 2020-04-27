@@ -245,9 +245,10 @@ nn_vals<-getValues(nnet_prediction)
 difference<-ifelse(rf_vals==nn_vals, 1, 0)
 rf_difference<-setValues(rf_prediction,difference)
 
-plot(rf_prediction,
-     breaks=seq(0,6), 
-     col=landclass$cols ,
+par(mfrow=c(1,1))
+plot(rf_difference,
+     breaks=2,
+     col=c("red","green"),
      legend=FALSE, axes=FALSE)
-legend("bottomleft", paste(landclass$landcover),
-       fill=landclass$cols ,bty="n")
+legend("bottomleft", paste(c("different predictions", "same predictions")),
+       fill=c("red","green") ,bty="n")
