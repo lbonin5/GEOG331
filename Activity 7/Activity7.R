@@ -215,6 +215,7 @@ nn_Eval = extract(nnet_prediction, validD[,3:4])
 nn_errorM = confusionMatrix(as.factor(nn_Eval),as.factor(validD$landcID))
 colnames(nn_errorM$table) <- landclass$landcover
 rownames(nn_errorM$table) <- landclass$landcover
+#demonstrating error
 nn_errorM$table
 nn_errorM$overall
 par(mfrow=c(2,1), mai=c(0,0,0,0))
@@ -240,13 +241,20 @@ legend("bottomleft", paste(landclass$landcover),
 #add title
 mtext("Neural network", side=3,cex=2, line=-5)
 
+
+# QUESTION 5
+
+#extracting the integer values for each land class for rf and neural network
 rf_vals<-getValues(rf_prediction)
 nn_vals<-getValues(nnet_prediction)
+#using an if else where 1 means the class predictions match, and 0 if they differ
 difference<-ifelse(rf_vals==nn_vals, 1, 0)
-rf_difference<-setValues(rf_prediction,difference)
+#creating a raster that includes the prediction differences
+predict_diff<-setValues(rf_prediction,difference)
 
+#creating a plot to demonstrate the difference on a map
 par(mfrow=c(1,1))
-plot(rf_difference,
+plot(predict_diff,
      breaks=2,
      col=c("red","green"),
      legend=FALSE, axes=FALSE)
